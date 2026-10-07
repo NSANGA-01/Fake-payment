@@ -20,7 +20,6 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
 // bussiness logic
 Route::Resource('products', ProductController::class)->only('index', 'show', 'create', 'store', 'edit', 'update', 'destroy');
 Route::Resource('payments', PaymentController::class)->only('index', 'show', 'create', 'store', 'edit', 'update', 'destroy');

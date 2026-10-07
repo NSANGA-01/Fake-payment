@@ -5,8 +5,7 @@ import {Link , useForm , usePage} from '@inertiajs/react';
 
 
 export default function Register() {
-
-     const { errors } = usePage().props;
+     const {flash} = usePage().props;
      const { data, setData, post } = useForm({
         name: '',
         email: '',
@@ -26,7 +25,12 @@ export default function Register() {
 
 
     return (
+        
         <div className="flex flex-col items-center justify-center min-h-screen bg-[#d7e4e7]">
+            {flash.success && <p className="text-green-500">{flash.success}</p>}
+            {flash.error && <p className="text-red-500">{flash.error}</p>}
+          
+
             <h1 className="text-4xl font-bold text-gray-800">Register</h1>
             <p className="mt-4 text-lg text-gray-600">Please fill out the form below to register.</p>
 

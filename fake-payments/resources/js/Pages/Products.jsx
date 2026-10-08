@@ -19,7 +19,8 @@ export default function Products({products}) {
                         <h2 className="text-xl font-bold text-gray-800">{product.name}</h2>
                         <p className="text-gray-600">{product.description}</p>
                         <p className="text-lg font-bold text-green-500">${product.price.toFixed(2)}</p>
-                        <Link  className="btn btn-info mt-2">Buy Now</Link>
+                        <Link  className="btn btn-info mt-2 mr-1.5 " href={route('products.show',product.id)} >Buy Now</Link>
+                        <Link className="btn btn-primary mt-2 ml-1.5" href={route('products.show',product.id)}>View</Link>
                     </div>
                 ))}
             </div>

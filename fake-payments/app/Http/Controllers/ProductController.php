@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Services\ProductService;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,8 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::all();
+        $service = new ProductService();
+        $products = $service->getAllProducts();
         return inertia('Products', ['products' => $products]);
     }
 
@@ -40,7 +42,9 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
-        
+        $service = new ProductService();
+        $product = $service->getProductById($product->id);
+        return inertia('ShowProduct', ['product' => $product]);
     }
 
     /**

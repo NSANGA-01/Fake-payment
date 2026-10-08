@@ -3,7 +3,6 @@ import React from 'react';
 import {Link , useForm , usePage} from '@inertiajs/react';
 
 
-
 export default function Register() {
      const {flash} = usePage().props;
      const { data, setData, post } = useForm({

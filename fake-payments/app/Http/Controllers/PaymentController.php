@@ -23,7 +23,7 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Product $product)
     {
         //
 
@@ -35,6 +35,12 @@ class PaymentController extends Controller
     public function store(StorePaymentRequest $request)
     {
         //
+        $validated = $request->validated();
+        $paymentService = new PaymentService();
+        $payment = $paymentService->createPayment($validated);
+        
+        return redirect()->route('products.show', $payment->product_id)->with('success', 'Payment created successfully.');
+
     }
 
     /**

@@ -12,7 +12,7 @@ class StorePaymentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,6 +24,10 @@ class StorePaymentRequest extends FormRequest
     {
         return [
             //
+            'product_id' => ['required', 'exists:products,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:20'],
+            'amount' => ['required', 'numeric', 'min:0'],
         ];
     }
 }

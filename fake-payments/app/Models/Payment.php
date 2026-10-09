@@ -11,6 +11,7 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'product_id',
         'name',
         'phone',
         'amount',

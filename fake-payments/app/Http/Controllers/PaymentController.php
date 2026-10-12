@@ -8,6 +8,7 @@ use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
 use App\Services\ProductService;
 use App\Services\PaymentService;
+use App\Jobs\SendVerificationCode;
 
 class PaymentController extends Controller
 {
@@ -26,7 +27,9 @@ class PaymentController extends Controller
     public function create(Product $product)
     {
         //
-
+        return inertia('PaymentForm', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -39,6 +42,8 @@ class PaymentController extends Controller
         $paymentService = new PaymentService();
         $payment = $paymentService->createPayment($validated);
         
+        // Dispatch the job to send the verification code
+        SendVerificationCode::dispatch($validated['user'] ?? null, $payment, $payment->product);
         return redirect()->route('products.show', $payment->product_id)->with('success', 'Payment created successfully.');
 
     }

@@ -4,7 +4,7 @@ import {Link , useForm , usePage} from '@inertiajs/react';
 export default function ShowProduct({product}) {
 
     const {flash} = usePage().props;
-    const { data, setData, post } = useForm({
+    const { data, setData, post , errors } = useForm({
 
         product_id: product.id,
         name: '',
@@ -27,15 +27,20 @@ export default function ShowProduct({product}) {
     return (
         <>
       
-       <div className="min-h-screen flex items-center justify-center bg-[#d7e4e7]">
+       <div className="min-h-screen  items-center justify-center bg-[#d7e4e7]">
         <div>
         {flash.success && <p className="text-green-500 text-sm border-2 border-green-500">{flash.success}</p>}
         {flash.error && <p className="text-red-500 text-sm border-2 border-red-500">{flash.error}</p>} 
+        {errors.payment && <p className="text-red-500 text-sm border-2 border-red-500">{errors.payment}</p>}
+        {errors.phone && <p className="text-red-500 text-sm border-2 border-red-500">{errors.phone}</p>}
+        {errors.amount && <p className="text-red-500 text-sm border-2 border-red-500">{errors.amount}</p>}
         </div>
-        <div className="flex items-center justify-center gap-6">
+
+
+        <div className="flex items-center mt-30 justify-center gap-6">
 
         <div className="flex flex-col ">
-            <img src={product.image} alt={product.name} className="w-40 h-40 rounded-md object-cover shrink-0" />
+            <img src={product.image} alt={product.name} className="w-80 h-40 rounded-md object-cover shrink-0" />
             <h1 className="text-4xl font-bold text-gray-800">{product.name}</h1>
             <p className="mt-4 text-lg text-gray-600">{product.description}</p>
             <p className="text-lg font-bold text-green-500">${product.price.toFixed(2)}</p>
@@ -61,7 +66,8 @@ export default function ShowProduct({product}) {
                 <div className="mb-4">
                     <label htmlFor="amount" className="block text-gray-700 font-bold mb-2">Amount</label>
                     <input type="number" id="amount" name="amount" className="w-full px-3 py-2 text-black border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-                     placeholder="Enter the amount" 
+                     placeholder="Enter the amount"
+                     step="0.01" min="0" 
                      value={data.amount} onChange={(e) => setData('amount', e.target.value)} />
                 </div>
                 <button type="submit" className="btn btn-info">Process Payment</button>
